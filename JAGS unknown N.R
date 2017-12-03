@@ -77,5 +77,4 @@ results = jout[[1]]
 
 results[,1006:1505]==1
 
-## NOTE that D is density per hectare, NOT per 10,000 hectares
 
