@@ -72,10 +72,5 @@ jinit = jags.model("simulJAGS2.txt", data=jags.data, inits=inits, n.chains=1, n.
 jout = coda.samples(jinit, parameters, n.iter=1000, thin=1)
 results = jout[[1]]
 
-(results[,5:504][results[,1006:1505]==1])
-(results[,505:1004][results[,1006:1505]==1])
-
-results[,1006:1505]==1
-
 
 ## NOTE that D is density per hectare, NOT per 10,000 hectares
