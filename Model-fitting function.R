@@ -1,5 +1,5 @@
 ## Assuming when produced data, discard0 = TRUE
-fit.model = function(data, M, g0.prior = "g0 ~ dunif(0, 1)", no.logu.coeff = FALSE, coeff.prior, parameters) {
+fit.model = function(data, M, g0.prior = "g0 ~ dunif(0, 1)", no.logu.coeff = FALSE, coeff.prior, parameters, n.iter=1000) {
   
   # Encounter matrix, no zeroes
   y = data$encounter.data
@@ -78,7 +78,7 @@ fit.model = function(data, M, g0.prior = "g0 ~ dunif(0, 1)", no.logu.coeff = FAL
   ## Running JAGS
   jinit = jags.model("simulJAGS2.txt", data=jags.data, inits=inits, n.chains=1, n.adapt=1000)
   ## Results
-  jout = coda.samples(jinit, parameters, n.iter=1000, thin=1)
+  jout = coda.samples(jinit, parameters, n.iter=n.iter, thin=1)
   
   ## Final object - mcmc output
   results = jout[[1]]
