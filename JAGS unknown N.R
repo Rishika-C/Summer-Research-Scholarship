@@ -32,9 +32,9 @@ for (i in 1:pop.size) {
 
 
 ## JAGS model
-cat("
+x = " 
 model{
-  g0 ~ dunif(0, 1)
+  g0 ~ dunif(0,1)
   log_coeff ~ dunif(-10,10)
   coeff <- exp(log_coeff)
   sigma <- sqrt(1/(2*coeff))
@@ -53,7 +53,9 @@ model{
   N = sum(z)
   D = (N/((max(xlim) - min(xlim)) * (max(ylim) - min(ylim)))) * 10000
 }
-", file="simulJAGS2.txt")
+"
+
+cat(x, file="simulJAGS2.txt")
 
 ## Data to put into JAGS
 jags.data = list(y=y, traplocs=traplocs, n.occ=n.occ, M=M, trap.no=trap.no, xlim=xlim, ylim=ylim)
