@@ -2,13 +2,9 @@
 # From model-fitting function
 results
 
-## From before:
-M = 500
-xlim = data$xlim
-ylim = data$ylim
 
-## NOTE - M from model-fitting function
-density.map = function(results, M) {
+## NOTE - M from model-fitting function; xlim and ylim from data simulation!
+density.map = function(results, M, xlim, ylim) {
   ## Points at which local density will be estimated
   xg = seq(xlim[1], xlim[2], length = 50)
   yg = seq(ylim[1], ylim[2], length = 50)
@@ -42,7 +38,11 @@ density.map = function(results, M) {
   
   
   ## Drawing the density map
-  # When drawing histograms in summarising function, have changed layout - need to change back!
-  par(mfrow=c(1,1))
+  # When drawing histograms in summarising function, have changed layout - need to change back! Also, specifying margins
+  # so can see values on bottom and left 
+  par(mfrow=c(1,1), mar=c(2, 2, 1, 1))
   image(xg, yg, Dn/ncol(Z), col=terrain.colors(10))
 }
+
+## Test
+density.map(results, M=500, xlim=data$xlim, ylim=data$ylim)
