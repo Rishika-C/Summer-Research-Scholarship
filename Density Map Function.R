@@ -46,3 +46,5 @@ density.map = function(results, M, xlim, ylim) {
 
 ## Test
 density.map(results, M=500, xlim=data$xlim, ylim=data$ylim)
+## Adding trap points - maybe add this to function!
+points(traps, pch=16)
