@@ -48,26 +48,14 @@ simul.data = function(traps, D, buffer, g0, sigma, n.occassions, seed=2017, disc
    
  }
 
- 
- ## Good values for test
- set.seed(2017)
- traps = matrix(runif(50, 0, 50), ncol=2, byrow=TRUE)
- 
- D = 1000
- buffer = 2
- g0 = 0.9
- sigma = 2
- n.occassions = 10
- seed = 2017
- discard0=FALSE
-
-data = simul.data(traps=traps, D=1000, buffer=2, g0=0.9, sigma=2, n.occassions=10, seed=2017, discard0=FALSE)
-data
+install.packages("spatstat")
+library("spatstat")
 
 ## Creating even grid of traps
 window = owin(xrange=c(0,100), yrange=c(0,100))
 points = gridcentres(window, 5, 5)
 traps = as.matrix(cbind(points$x, points$y))
+
 ## New data simulation based on even grid
 # Note - sigma is half of the distance between each trap - therefore, sigma is now 10
 data = simul.data(traps=traps, D=1000, buffer=2, g0=0.9, sigma=10, n.occassions=10, seed=2017, discard0=FALSE)
