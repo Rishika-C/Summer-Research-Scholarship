@@ -1,5 +1,6 @@
 ## Assuming when produced data, discard0 = TRUE
-fit.model = function(data, M, g0.prior = "g0 ~ dunif(0, 1)", no.logu.coeff = FALSE, coeff.prior, parameters, n.iter=1000) {
+fit.model = function(data, M, g0.prior = "g0 ~ dunif(0, 1)", no.logu.coeff = FALSE, 
+                     coeff.prior, parameters, n.iter=1000, g0.start = runif(1, 0, 1), log_coeff.start=runif(1, 0, 1)) {
   
   # Encounter matrix, no zeroes
   y = data$encounter.data
@@ -34,13 +35,14 @@ fit.model = function(data, M, g0.prior = "g0 ~ dunif(0, 1)", no.logu.coeff = FAL
   }
   
   ## JAGS model
+  
   x = " 
   model{
   g0 ~ dunif(0,1)
+  psi ~ dunif(0,1)
   log_coeff ~ dunif(-10,10)
   coeff <- exp(log_coeff)
   sigma <- sqrt(1/(2*coeff))
-  psi ~ dunif(0,1)
 
   for (i in 1:M) {
     z[i] ~ dbern(psi)
@@ -70,7 +72,7 @@ fit.model = function(data, M, g0.prior = "g0 ~ dunif(0, 1)", no.logu.coeff = FAL
   
   ## Initial Values
   inits = function() {
-    list (g0=runif(1, 0, 1), log_coeff=runif(1, 0, 1), s=sst, z=z)
+    list (g0=g0.start, log_coeff=log_coeff.start, s=sst, z=z)
   }
   
   ## Parameters to monitor
@@ -86,12 +88,8 @@ fit.model = function(data, M, g0.prior = "g0 ~ dunif(0, 1)", no.logu.coeff = FAL
   
 }
 
-## Test
-data = simul.data(traps=traps, D=1000, buffer=2, g0=0.9, sigma=2, n.occassions=10, seed=2017, discard0=TRUE)
-results = fit.model(data=data, M=500, parameters = c("g0", "coeff", "sigma", "N", "D", "z", "s"), n.iter=10000)
-
 ## Even trap grid
 # Smaller D - means that N remains under 500!
-data = simul.data(traps=traps, D=500, buffer=2, g0=0.9, sigma=10, n.occassions=10, seed=2017, discard0=TRUE)
-results = fit.model(data=data, M=500, parameters = c("g0", "coeff", "sigma", "N", "D", "z", "s"), n.iter=10000)
+data = simul.data(traps=traps, D=50, buffer=50, g0=0.9, sigma=10, n.occassions=2, seed=2017, discard0=TRUE)
+results = fit.model(data=data, M=500, parameters = c("g0", "coeff", "sigma", "N", "D", "z", "s"), n.iter=10000, g0.start = 0.5, log_coeff.start = -5)
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
