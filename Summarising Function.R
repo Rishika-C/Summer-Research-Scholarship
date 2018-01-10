@@ -54,7 +54,5 @@ summarise = function(results) {
   return(list)
 }
 
-## Test
-summarised = summarise(results)
-summarised
+
 
