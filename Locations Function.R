@@ -3,7 +3,7 @@ ylim = data$ylim
 M = 500
 s.no=4
 
-locations = function (s.no, M, xlim, ylim) {
+locations = function (results, s.no, M, xlim, ylim) {
   ## Points at which local density will be estimated
   xg = seq(xlim[1], xlim[2], length = 50)
   yg = seq(ylim[1], ylim[2], length = 50)
