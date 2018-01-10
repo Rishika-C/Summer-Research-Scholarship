@@ -4,7 +4,7 @@ results
 
 
 ## NOTE - M from model-fitting function; xlim and ylim from data simulation!
-density.map = function(results, M, xlim, ylim) {
+density.map = function(results, M, xlim, ylim, points=FALSE, traps=NULL) {
   ## Points at which local density will be estimated
   xg = seq(xlim[1], xlim[2], length = 50)
   yg = seq(ylim[1], ylim[2], length = 50)
@@ -42,9 +42,9 @@ density.map = function(results, M, xlim, ylim) {
   # so can see values on bottom and left 
   par(mfrow=c(1,1), mar=c(2, 2, 1, 1))
   image(xg, yg, Dn/ncol(Z), col=terrain.colors(10))
+  
+  if (points) {
+    points(traps, pch=16)
+  }
 }
 
-## Test
-density.map(results, M=500, xlim=data$xlim, ylim=data$ylim)
-## Adding trap points - maybe add this to function!
-points(traps, pch=16)
