@@ -4,6 +4,7 @@ trace = function(results, par=NULL, s=FALSE, s.no=NULL) {
   if (s) {
     val.1 = paste("s", "[", s.no, ",1]", sep="")
     val.2 = paste("s", "[", s.no, ",2]", sep="")
+    par(mfrow=c(1,1), mar=c(2, 2, 1, 1))
     plot(as.numeric(results[,val.1]), as.numeric(results[,val.2]))
   } else {
     plot(results[, par])
