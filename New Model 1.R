@@ -40,6 +40,7 @@ for (i in 1:dim(ac.1)[1]) {
 
 ## Finding lambda values for the FIRST animal for each pixel
 lambda = -log(1-prob)
+
 ## Normalising
 f = lambda/sum(lambda)
 
