@@ -8,11 +8,6 @@ window = owin(xrange=c(0,100), yrange=c(0,100))
 points = gridcentres(window, 5, 5)
 traps = as.matrix(cbind(points$x, points$y))
 
-## Data simulation based on even grid
-# Note - sigma is half of the distance between each trap - therefore, sigma is now 10
-data = simul.data(traps=traps, D=1000, buffer=2, g0=0.9, sigma=10, n.occassions=10, seed=2017, discard0=FALSE)
-data
-
 
 ### Model-Fitting Function
 ## Even trap grid
@@ -27,7 +22,7 @@ summarised
 
 
 ### Density Map Function
-map = density.map(results, M=500, xlim=data$xlim, ylim=data$ylim, points=TRUE, traps=traps)
+density.map(results, M=500, xlim=data$xlim, ylim=data$ylim, points=FALSE, traps=traps)
 
 
 ### Trace Function
@@ -36,6 +31,6 @@ trace(results=results, s=TRUE, s.no=5)
 
 
 ### Locations Function
-locations(70, M=500, xlim=data$xlim, ylim=data$ylim)
+locations(results=results, s.no=60, M=500, xlim=data$xlim, ylim=data$ylim)
 
 
