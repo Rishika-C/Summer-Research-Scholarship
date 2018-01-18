@@ -31,6 +31,6 @@ trace(results=results, s=TRUE, s.no=5)
 
 
 ### Locations Function
-locations(results=results, s.no=60, M=500, xlim=data$xlim, ylim=data$ylim)
+locations(results=results, s.no=1, M=500, xlim=data$xlim, ylim=data$ylim)
 
 
