@@ -41,8 +41,9 @@ for (i in 1:dim(ac.1)[1]) {
 ## Finding lambda values for the FIRST animal for each pixel
 lambda = -log(1-prob)
 
-## Normalising
-f = lambda/sum(lambda)
+# Adding together values for each row, and then dividing the elements of each row by their specific row totals 
+norm = sweep(lambda, 1, add, FUN="/")
 
-## Checking
-sum(f)
+## Checking - if normalised correctly, should add to 1!
+sum(norm[1,])
+
