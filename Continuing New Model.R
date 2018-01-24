@@ -20,7 +20,8 @@ for (i in 1:M) {
   list[[i]] = act.cent
 }
 
-
+#### IN CASE WHEN USING THE CODE DON'T ALWAYS WANT 10000 ITERATIONS
+n.iter = 10000
 ## Resetting the z values from the object 'results', so that any z vectors containing 0's are replaced by all-zero vectors
 # Names of variables that have been monitored
 names = names(results[1,])
@@ -31,8 +32,8 @@ sum(z.values[,"z[1]"])
 for (i in 1:M) {
   z = paste("z[", i, "]", sep="")
   z.values[,z]
-  if (sum(z.values[,z]) != 10000) {
-    z.values[,z] = rep(0, 10000)
+  if (sum(z.values[,z]) != n.iter) {
+    z.values[,z] = rep(0, n.iter)
   }
   z.values
 }
@@ -49,5 +50,4 @@ for (i in 1:M) {
 
 ## So, new.list is a list consisting of activity centres ONLY for observed animals - unobserved animals have activity
 # centres of 0 - this means that when probability matrices, lambda matrices, etc. are constructed, they will have values of 0!
-
 
