@@ -51,3 +51,11 @@ for (i in 1:M) {
 ## So, new.list is a list consisting of activity centres ONLY for observed animals - unobserved animals have activity
 # centres of 0 - this means that when probability matrices, lambda matrices, etc. are constructed, they will have values of 0!
 
+squared.distances = function(activity.centre, pixel.centres) {
+  dist = e2dist(activity.centre, pixel.centres)
+  squared = dist ^ 2
+}
+squared = squared.distances(activity.centre=new.list[[1]], centres.2)
+
+## Try to find squared distances element-wise through the list - do the same for lambda, etc. Maybe find a way
+# to remove/combine the purely 0 elements of the list???
