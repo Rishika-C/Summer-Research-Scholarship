@@ -18,7 +18,6 @@ for (i in 1:M) {
   list[[i]] = act.cent
 }
 
-
 ## Obtaining all of the z values from the MCMC results
 # Names of variables that have been monitored
 names = names(results[1,])
@@ -35,6 +34,7 @@ for (i in 1:M) {
   new.list[[i]] = multiply
 }
 
+#### TEST #####
 ## To check - from 77 onwards (only 77 animals observed), elements of new.list/the activity centre matrices should
 ## consist of some rows of 0's
 new.list[[1]]
@@ -42,6 +42,7 @@ new.list[[77]]
 new.list[[78]]
 new.list[[400]]
 length(new.list)
+###############
 
 
 # Creating the grid of points at which density will be estimated. 
@@ -91,6 +92,7 @@ new.model = function (activity.matrix, pixel.centres, z.vector, g0 = results[,"g
     final = apply(norm, 2, mean)
 }
 
+##### TEST ######
 # Getting final vector for the first animal
 checking = new.model(new.list[[1]], pixel.centres=centres.2, z.vector=z.values[,1])
 # Creating the object required when calling image()
@@ -106,6 +108,7 @@ prep = prep4image(data.frame(x=centres.2[,1], y=centres.2[,2], z=imaginary), plo
 image(x=unique(centres.2[,1]), y=unique(centres.2[,2]), z=prep$z)
 # Showing the trap locations
 points(traps,pch=16)
+######################
 
 
 ## Obtaining the final distribution for each possible animal (there are M possible animals), and storing the results
