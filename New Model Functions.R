@@ -91,7 +91,7 @@ new.model = function (activity.matrix, pixel.centres, z.vector, g0 = results[,"g
 
 
 ## Function to (hopefully) draw final map!
-final.map = function(activity.centres, pixel.centres, z.values, n.pixels) {
+final.map = function(activity.centres, pixel.centres, z.values, n.pixels, points=FALSE, traps=NULL) {
   ## Obtaining the final distribution for each possible animal (there are M possible animals), and storing the results
   ## in a matrix with M rows and the same number of columns as the number of pixels at which density is being estimated 
   vectors = matrix(0, ncol=n.pixels, nrow=M)
@@ -109,6 +109,11 @@ final.map = function(activity.centres, pixel.centres, z.values, n.pixels) {
   par(mar=c(2,2,1,1))
   # Creating image
   image(x=unique(pixel.centres[,1]), y=unique(pixel.centres[,2]), z=final.prep$z, xlab=NA, ylab=NA)
+  
+  # Showing the trap locations, if points=TRUE
+  if (points) {
+    points(traps, pch=16)
+  }
 }
 
 final.map(activity.centres, pixel.centres=centres.3, z.values, n.pixels=5929)
