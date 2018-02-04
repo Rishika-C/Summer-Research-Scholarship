@@ -34,7 +34,7 @@ for (i in 1:M) {
   new.list[[i]] = multiply
 }
 
-#### TEST #####
+#### TEST ####
 ## To check - from 77 onwards (only 77 animals observed), elements of new.list/the activity centre matrices should
 ## consist of some rows of 0's
 new.list[[1]]
@@ -48,16 +48,16 @@ length(new.list)
 # Creating the grid of points at which density will be estimated. 
 # Need to add an additional buffer of 50 to each side of the map - so, would have an x and y range of -90 to 190.
 # Adding 0.4 so the range is 90.4, 100.4, so that a whole number of pixels can be added on each side - in total, 78 pixels long and wide
-window.3 = owin(xrange=c(-90.4,190.4), yrange=c(-90.4,190.4))
+window.3 = owin(xrange=c(-90,190), yrange=c(-90,190))
 points.big = gridcentres(window.3, 77, 77)
 centres.2 = as.matrix(cbind(points.big$x, points.big$y))
 points(centres.2, pch=3)
 
 
 ## Function to take the activity centre matrix, and find the subsequent distance/probability/lambda/distribution matrix
-new.model = function (activity.matrix, pixel.centres, z.vector, g0 = results[,"g0"], coeff = results[,"coeff"]) {
+new.model.1 = function (activity.matrix, pixel.centres, z.vector, g0 = results[,"g0"], coeff = results[,"coeff"]) {
     # Distance matrix
-    distances = e2dist(activity.matrix, pixel.centres)
+    distances = crossdist(activity.matrix[,1], activity.matrix[,2], pixel.centres[,1], pixel.centres[,2])
     # Squaring the distance matrix, to get squared distances (as used in detection function)
     sq.distances = distances^2
     
@@ -76,6 +76,8 @@ new.model = function (activity.matrix, pixel.centres, z.vector, g0 = results[,"g
     ## Therefore, 'prob' is the probability matrix, giving the probability of the first animal's activity centre 
     ## being in each identified pixel
     
+    prob.2 = g0 * exp(-coeff * sq.distances) * z.vector
+    
     ## Finding the lambda values for the selected animal for each pixel
     lambda = -log(1-prob)
     
@@ -92,7 +94,7 @@ new.model = function (activity.matrix, pixel.centres, z.vector, g0 = results[,"g
     final = apply(norm, 2, mean)
 }
 
-##### TEST ######
+####### TEST #######
 # Getting final vector for the first animal
 checking = new.model(new.list[[1]], pixel.centres=centres.2, z.vector=z.values[,1])
 # Creating the object required when calling image()
@@ -119,6 +121,10 @@ for (i in 1:M) {
   vectors[i,] = model
 }
 
+model = new.model(activity.centres[[1]], pixel.centres=centres.3, z.vector=z.values[,1])
+testing.prep = prep4image(data.frame(x=centres.3[,1], y=centres.3[,2], z=model), plot=FALSE)
+image(x=unique(centres.3[,1]), y=unique(centres.3[,2]), z=testing.prep$z, xlab=NULL, ylab=NULL)
+
 ## 'vectors' should be the final matrix, containing the final distribution for each possible animal (there are
 ## M possible animals - in this case, 500 possible animals)
 ### NOTE it took approximately five hours to get 'vectors' - need to fix the code!!! 
@@ -126,10 +132,11 @@ for (i in 1:M) {
 ## Obtaining the final final distribution!
 final = apply(vectors, 2, sum)
 
+par(mar=c(2,2,1,1))
 ### Trying to make the final map!
 # Creating objects required for image()
-final.prep = prep4image(data.frame(x=centres.2[,1], y=centres.2[,2], z=final), plot=FALSE)
+final.prep = prep4image(data.frame(x=centres.2[,1], y=centres.2[,2], z=model), plot=FALSE)
 # Creating image
-image(x=unique(centres.2[,1]), y=unique(centres.2[,2]), z=final.prep$z)
+image(x=unique(centres.2[,1]), y=unique(centres.2[,2]), z=final.prep$z, xlab=NA, ylab=NA)
 # Showing the trap locations
 points(traps,pch=16)
