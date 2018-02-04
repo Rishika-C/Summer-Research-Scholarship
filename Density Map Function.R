@@ -43,6 +43,7 @@ density.map = function(results, M, xlim, ylim, points=FALSE, traps=NULL) {
   par(mfrow=c(1,1), mar=c(2, 2, 1, 1))
   image(xg, yg, Dn/ncol(Z), col=terrain.colors(10))
   
+  # Adding the trap locations, if points=TRUE
   if (points) {
     points(traps, pch=16)
   }
