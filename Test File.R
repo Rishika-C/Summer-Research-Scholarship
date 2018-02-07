@@ -20,7 +20,7 @@ traps = as.matrix(cbind(points$x, points$y))
 ## Sourcing function
 source("Simulation Function.R")
 # Simulating data
-data = simul.data(traps=traps, D=50, buffer=50, g0=0.9, sigma=10, n.occassions=10, seed=2017, discard0=TRUE)
+data = simul.data(traps=traps, D=50, buffer=50, g0=0.9, sigma=10, n.occassions=2, seed=2017, discard0=TRUE)
 
 
 ### Model-Fitting Function
@@ -63,14 +63,16 @@ locations(results=results, s.no=77, M=500, xlim=data$xlim, ylim=data$ylim)
 ### Functions for new model
 ## Sourcing the funcionts
 source("New Model Functions.R")
+source("prep4image function.R")
 # Generating a list of all the activity centre matrices for each animal from the MCMC iterations - for every
 # z value of 0, the activity centre matrix has x- and y-coordinates of 0!
 activity.centres = activity.matrices(results, M=500)
 # Extracting all the z vectors from 'results'
 z.values = Z.values(results)
 # Generating a matrix of the pixel centres at which animal density will be estimated
-centres.3 = centres(xrange=c(-40,140), yrange=c(-40,140), x.pixels=77, y.pixels=77)
+centres.3 = centres(xrange=c(-90.4,190.4), yrange=c(-90.4,190.4), x.pixels=77, y.pixels=77)
 # Function to draw the final map! The function itself calls on another function created (new.model() - this can
 # be used to draw maps for individual animals' activity centres)
-final.map(activity.centres, pixel.centres=centres.3, z.values, n.pixels=5929)
-
+final.map(activity.centres, pixel.centres=centres.3, z.values, M=500, n.pixels=5929, xlim=c(-40,140), ylim=c(-40,140))
+## Adding traps
+points(traps, pch=16)
