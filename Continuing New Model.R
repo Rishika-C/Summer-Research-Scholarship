@@ -135,8 +135,9 @@ final = apply(vectors, 2, sum)
 par(mar=c(2,2,1,1))
 ### Trying to make the final map!
 # Creating objects required for image()
-final.prep = prep4image(data.frame(x=centres.2[,1], y=centres.2[,2], z=model), plot=FALSE)
+final.prep = prep4image(data.frame(x=centres.3[,1], y=centres.3[,2], z=model), plot=FALSE)
 # Creating image
-image(x=unique(centres.2[,1]), y=unique(centres.2[,2]), z=final.prep$z, xlab=NA, ylab=NA)
+image(x=unique(centres.3[,1]), y=unique(centres.3[,2]), z=final.prep$z, xlab=NA, ylab=NA, xlim=c(-40,140),
+      ylim=c(-40,140), col=terrain.colors(10))
 # Showing the trap locations
 points(traps,pch=16)
