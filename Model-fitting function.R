@@ -44,16 +44,16 @@ fit.model = function(data, M, g0.prior = "g0 ~ dunif(0, 1)", no.logu.coeff = FAL
   log_coeff ~ dunif(-10,10)
   coeff <- exp(log_coeff)
   sigma <- sqrt(1/(2*coeff))
-
+  
   for (i in 1:M) {
-    z[i] ~ dbern(psi)
-    s[i,1] ~ dunif(xlim[1], xlim[2])
-    s[i,2] ~ dunif(ylim[1], ylim[2])
-    for (j in 1:trap.no) {
-      d[i,j] <- sqrt((s[i,1] - traplocs[j,1])^2 + (s[i,2] - traplocs[j,2])^2)
-      p[i,j] <- z[i] * g0 * exp(-coeff * d[i,j] * d[i,j])
-      y[i,j] ~ dbin(p[i,j], n.occ)
-    }
+  z[i] ~ dbern(psi)
+  s[i,1] ~ dunif(xlim[1], xlim[2])
+  s[i,2] ~ dunif(ylim[1], ylim[2])
+  for (j in 1:trap.no) {
+  d[i,j] <- sqrt((s[i,1] - traplocs[j,1])^2 + (s[i,2] - traplocs[j,2])^2)
+  p[i,j] <- z[i] * g0 * exp(-coeff * d[i,j] * d[i,j])
+  y[i,j] ~ dbin(p[i,j], n.occ)
+  }
   }
   N = sum(z)
   D = (N/((max(xlim) - min(xlim)) * (max(ylim) - min(ylim)))) * 10000
@@ -62,7 +62,7 @@ fit.model = function(data, M, g0.prior = "g0 ~ dunif(0, 1)", no.logu.coeff = FAL
   
   if (g0.prior != "g0 ~ dunif(0, 1)") gsub("g0 ~ dunif\\(0, 1\\)", g0.prior, x)
   if (no.logu.coeff) {x = gsub("log_coeff ~ dunif\\(-10,10\\)", "", x) 
-    gsub("coeff <- exp\\(log_coeff\\)", coeff.prior, x)}
+  gsub("coeff <- exp\\(log_coeff\\)", coeff.prior, x)}
   
   
   # Using model
@@ -75,9 +75,9 @@ fit.model = function(data, M, g0.prior = "g0 ~ dunif(0, 1)", no.logu.coeff = FAL
   if (no.logu.coeff) {
     list(g0=g0.start, coeff=coeff.start, s=sst, z=z)
   } else {
-  inits = function() {
-    list (g0=g0.start, log_coeff=log_coeff.start, s=sst, z=z)
-  }
+    inits = function() {
+      list (g0=g0.start, log_coeff=log_coeff.start, s=sst, z=z)
+    }
   }
   
   ## Parameters to monitor
@@ -93,4 +93,4 @@ fit.model = function(data, M, g0.prior = "g0 ~ dunif(0, 1)", no.logu.coeff = FAL
   
 }
 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
+
