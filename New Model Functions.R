@@ -118,4 +118,5 @@ final.map = function(activity.centres, pixel.centres, z.values, M, n.pixels, poi
   }
 }
 
+## TEST
 final.map(activity.centres, pixel.centres=centres.3, z.values, M=1, n.pixels=5929, xlim=c(-40,140), ylim=c(-40,140))
