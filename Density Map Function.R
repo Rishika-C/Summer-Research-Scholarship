@@ -38,10 +38,7 @@ density.map = function(results, M, xlim, ylim, points=FALSE, traps=NULL) {
   
   
   ## Drawing the density map
-  # When drawing histograms in summarising function, have changed layout - need to change back! Also, specifying margins
-  # so can see values on bottom and left 
-  par(mfrow=c(1,1), mar=c(2, 2, 1, 1))
-  image(xg, yg, Dn/ncol(Z), col=terrain.colors(10))
+  image(xg, yg, Dn/nrow(Z), col=terrain.colors(10), xlab=NA, ylab=NA)
   
   # Adding the trap locations, if points=TRUE
   if (points) {
