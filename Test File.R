@@ -20,7 +20,7 @@ traps = as.matrix(cbind(points$x, points$y))
 ## Sourcing function
 source("Simulation Function.R")
 # Simulating data
-data = simul.data(traps=traps, D=50, buffer=50, g0=0.9, sigma=10, n.occassions=2, seed=2017, discard0=TRUE)
+data = simul.data(traps=traps, D=50, buffer=50, g0=0.9, sigma=10, n.occassions=10, seed=2017, discard0=TRUE)
 
 
 ### Model-Fitting Function
