@@ -1,6 +1,7 @@
 ## Assuming when produced data, discard0 = TRUE
 fit.model = function(data, M, g0.prior = "g0 ~ dunif(0, 1)", no.logu.coeff = FALSE, 
-                     coeff.prior, parameters, n.iter=1000, g0.start = runif(1, 0, 1), log_coeff.start=runif(1, 0, 1)) {
+                     coeff.prior, parameters, n.iter=1000, g0.start = runif(1, 0, 1), log_coeff.start=runif(1, 0, 1), 
+                     coeff.start) {
   
   # Encounter matrix, no zeroes
   y = data$encounter.data
@@ -71,8 +72,12 @@ fit.model = function(data, M, g0.prior = "g0 ~ dunif(0, 1)", no.logu.coeff = FAL
   jags.data = list(y=y, traplocs=traplocs, n.occ=n.occ, M=M, trap.no=trap.no, xlim=xlim, ylim=ylim)
   
   ## Initial Values
+  if (no.logu.coeff) {
+    list(g0=g0.start, coeff=coeff.start, s=sst, z=z)
+  } else {
   inits = function() {
     list (g0=g0.start, log_coeff=log_coeff.start, s=sst, z=z)
+  }
   }
   
   ## Parameters to monitor
