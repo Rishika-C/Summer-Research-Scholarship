@@ -1,7 +1,7 @@
 trace = function(results, par=NULL, s=FALSE, s.no=NULL) {
   if (s) {
     # Extracting s-value column names from the 'results' object, so that can later extract the required
-    # columns from the 'results' object
+    # columns from the 'results' object (can extract two columns for each individual animal)
     val.1 = paste("s", "[", s.no, ",1]", sep="")
     val.2 = paste("s", "[", s.no, ",2]", sep="")
     # Resetting margins so plot looks good
