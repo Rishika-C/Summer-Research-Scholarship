@@ -1,8 +1,3 @@
-xlim = data$xlim
-ylim = data$ylim
-M = 500
-s.no=70
-
 locations = function (results, s.no, M, xlim, ylim) {
   ## Points at which local density will be estimated
   xg = seq(xlim[1], xlim[2], length = 50)
