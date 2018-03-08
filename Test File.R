@@ -1,4 +1,4 @@
-y### TESTS
+### TESTS
 
 ## PACKAGES TO LOAD
 # Spatstat package - for grid points
@@ -38,6 +38,9 @@ summarised = summarise(results)
 summarised
 
 
+# When drawing histograms in summarising function, have changed layout - need to change back before drawing
+# density map! Also, specifying margins so can see axes values on bottom and left 
+par(mfrow=c(1,1), mar=c(2, 2, 1, 1))
 ### Density Map Function
 ## Sourcing the function
 source("Density Map Function.R")
@@ -62,8 +65,8 @@ locations(results=results, s.no=77, M=500, xlim=data$xlim, ylim=data$ylim)
 
 ### Functions for new model
 ## Sourcing the funcionts
-source("New Model Functions.R")
 source("prep4image function.R")
+source("New Model Functions.R")
 # Generating a list of all the activity centre matrices for each animal from the MCMC iterations - for every
 # z value of 0, the activity centre matrix has x- and y-coordinates of 0!
 activity.centres = activity.matrices(results, M=500)
